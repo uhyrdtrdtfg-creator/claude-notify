@@ -150,7 +150,7 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					0BD896AFB786EA699CCD8F4D = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 4257SFGRFK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -212,7 +212,7 @@
 				CODE_SIGN_ENTITLEMENTS = ClaudeNotify/Resources/ClaudeNotify.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4257SFGRFK;
 				INFOPLIST_FILE = ClaudeNotify/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -352,7 +352,7 @@
 				CODE_SIGN_ENTITLEMENTS = ClaudeNotify/Resources/ClaudeNotify.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4257SFGRFK;
 				INFOPLIST_FILE = ClaudeNotify/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

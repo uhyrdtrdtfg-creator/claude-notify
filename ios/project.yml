@@ -23,7 +23,7 @@ targets:
         createIntermediateGroups: true
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.claudenotify.app
-      DEVELOPMENT_TEAM: ""  # Set to your Apple Developer Team ID
+      DEVELOPMENT_TEAM: "4257SFGRFK"
       INFOPLIST_FILE: ClaudeNotify/Resources/Info.plist
       CODE_SIGN_ENTITLEMENTS: ClaudeNotify/Resources/ClaudeNotify.entitlements
       CODE_SIGN_STYLE: Automatic
