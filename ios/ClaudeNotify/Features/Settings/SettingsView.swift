@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct SettingsView: View {
     @EnvironmentObject var store: NotificationStore
@@ -92,6 +93,10 @@ struct SettingsView: View {
         store.api.serverURL = serverURL
         store.api.secret = secret
         store.api.userID = userID.isEmpty ? "default" : userID
+        // Re-trigger APNs registration so the device token reaches the server
+        // now that we have URL + secret. Without this, the first-launch token
+        // is lost (registration runs before user fills Settings).
+        UIApplication.shared.registerForRemoteNotifications()
     }
 
     private func testConnection() async {
