@@ -1,0 +1,31 @@
+# XcodeGen project spec — run `xcodegen generate` in this directory to create ClaudeNotify.xcodeproj
+# Install XcodeGen: brew install xcodegen
+name: ClaudeNotify
+
+options:
+  bundleIdPrefix: com.claudenotify
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15"
+  createIntermediateGroups: true
+
+settings:
+  SWIFT_VERSION: "5.10"
+  IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+  ENABLE_BITCODE: NO
+
+targets:
+  ClaudeNotify:
+    type: application
+    platform: iOS
+    sources:
+      - path: ClaudeNotify
+        createIntermediateGroups: true
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.claudenotify.app
+      DEVELOPMENT_TEAM: ""  # Set to your Apple Developer Team ID
+      INFOPLIST_FILE: ClaudeNotify/Resources/Info.plist
+      CODE_SIGN_ENTITLEMENTS: ClaudeNotify/Resources/ClaudeNotify.entitlements
+      CODE_SIGN_STYLE: Automatic
+    capabilities:
+      push-notifications: {}

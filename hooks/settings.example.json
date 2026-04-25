@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 $HOME/.claude/hooks/claude-notify.py" }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 $HOME/.claude/hooks/claude-notify.py" }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 $HOME/.claude/hooks/claude-notify.py" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+notify.example.com {
+    reverse_proxy localhost:8080
+
+    # Only allow the paths the app uses
+    @allowed path /healthz /v1/register /v1/notify /v1/history
+    handle @allowed {
+        reverse_proxy localhost:8080
+    }
+    handle {
+        respond 404
+    }
+}
