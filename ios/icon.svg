@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1C1C2E"/>
+      <stop offset="100%" style="stop-color:#2D1B69"/>
+    </linearGradient>
+    <linearGradient id="bell" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8D5FF"/>
+      <stop offset="100%" style="stop-color:#C084FC"/>
+    </linearGradient>
+    <linearGradient id="dot" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F97316"/>
+      <stop offset="100%" style="stop-color:#EF4444"/>
+    </linearGradient>
+    <!-- iOS rounded rect clip -->
+    <clipPath id="round">
+      <rect width="1024" height="1024" rx="224" ry="224"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" ry="224" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1.5">
+    <line x1="0" y1="256" x2="1024" y2="256"/>
+    <line x1="0" y1="512" x2="1024" y2="512"/>
+    <line x1="0" y1="768" x2="1024" y2="768"/>
+    <line x1="256" y1="0" x2="256" y2="1024"/>
+    <line x1="512" y1="0" x2="512" y2="1024"/>
+    <line x1="768" y1="0" x2="768" y2="1024"/>
+  </g>
+
+  <!-- Bell body -->
+  <path d="M512 220
+    C390 220 300 318 300 448
+    L300 580
+    L248 640
+    L248 676
+    L776 676
+    L776 640
+    L724 580
+    L724 448
+    C724 318 634 220 512 220Z"
+    fill="url(#bell)"/>
+
+  <!-- Bell bottom clapper -->
+  <path d="M450 676 Q512 760 574 676Z" fill="url(#bell)"/>
+
+  <!-- Bell handle / top -->
+  <rect x="488" y="172" width="48" height="60" rx="24" fill="url(#bell)"/>
+
+  <!-- Notification dot (orange/red, top-right of bell) -->
+  <circle cx="700" cy="280" r="72" fill="url(#dot)"/>
+  <!-- Exclamation mark in dot -->
+  <rect x="688" y="245" width="24" height="50" rx="12" fill="white"/>
+  <circle cx="700" cy="315" r="13" fill="white"/>
+</svg>
