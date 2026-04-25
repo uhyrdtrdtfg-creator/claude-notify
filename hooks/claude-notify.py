@@ -67,6 +67,8 @@ def post(payload: dict) -> None:
         headers={
             "Content-Type": "application/json",
             "Authorization": f"Bearer {SHARED_SECRET}",
+            # Cloudflare blocks default Python-urllib UA — pretend to be a browser.
+            "User-Agent": "Mozilla/5.0 (claude-notify-hook)",
         },
     )
     try:
