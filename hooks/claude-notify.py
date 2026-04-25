@@ -95,8 +95,28 @@ def main() -> int:
         body = last_assistant_message(event.get("transcript_path", "")) or "(Claude finished)"
     elif hook_name == "Notification":
         body = event.get("message") or "Claude needs attention"
+    elif hook_name == "SessionStart":
+        body = f"Session started ({event.get('source', 'startup')})"
     elif hook_name == "SessionEnd":
         body = f"Session ended ({event.get('reason', '')})".strip()
+    elif hook_name == "UserPromptSubmit":
+        prompt = (event.get("prompt") or "").strip().replace("\n", " ")
+        body = f"You: {prompt}" if prompt else "User submitted"
+    elif hook_name == "PreToolUse":
+        tool = event.get("tool_name", "?")
+        ti = event.get("tool_input", {}) or {}
+        # Show a short hint of what the tool will do
+        hint = ti.get("command") or ti.get("file_path") or ti.get("path") \
+            or ti.get("pattern") or ti.get("url") or ti.get("description") or ""
+        if isinstance(hint, str) and hint:
+            body = f"→ {tool}: {hint}"
+        else:
+            body = f"→ {tool}"
+    elif hook_name == "PostToolUse":
+        tool = event.get("tool_name", "?")
+        resp = event.get("tool_response", {}) or {}
+        ok = "✓" if not resp.get("is_error") else "✗"
+        body = f"{ok} {tool} done"
     else:
         body = hook_name or "event"
 
