@@ -2,8 +2,10 @@
 """Claude Code hook → claude-notify server.
 
 Reads the hook JSON payload on stdin, extracts a human-readable title/body,
-and POSTs to the notify server. Never blocks Claude: all failures are logged
-to stderr and the script exits 0.
+and POSTs to the notify server. Never blocks Claude:
+  - the parent forks and returns 0 immediately (so Claude Code continues)
+  - a detached grandchild does the actual HTTP request in the background
+  - all errors are swallowed; the script never returns non-zero
 """
 from __future__ import annotations
 
@@ -120,15 +122,53 @@ def main() -> int:
     else:
         body = hook_name or "event"
 
-    post({
+    payload = {
         "user_id": USER_ID,
         "event": hook_name.lower(),
         "session_id": session_id,
         "cwd": cwd,
         "title": truncate(title, 60),
         "body": body.strip(),
-    })
-    return 0
+    }
+
+    # Detach so Claude Code doesn't wait for our HTTP round-trip.
+    # Double-fork: parent → child → grandchild; parent exits, grandchild
+    # is reparented to init and runs independently.
+    try:
+        if os.fork() > 0:
+            return 0  # parent — Claude continues immediately
+    except OSError:
+        # fork unsupported (rare); fall back to synchronous send
+        post(payload)
+        return 0
+
+    # In child — orphan ourselves so we don't keep Claude's session group alive
+    try:
+        os.setsid()
+        if os.fork() > 0:
+            os._exit(0)
+    except OSError:
+        pass
+
+    # Grandchild — close fds and do the HTTP POST. Errors are swallowed.
+    try:
+        for fd in (0, 1, 2):
+            try:
+                os.close(fd)
+            except OSError:
+                pass
+        # Reopen /dev/null so accidental prints don't crash
+        devnull = os.open(os.devnull, os.O_RDWR)
+        for fd in (0, 1, 2):
+            try:
+                os.dup2(devnull, fd)
+            except OSError:
+                pass
+        post(payload)
+    except Exception:
+        pass
+    finally:
+        os._exit(0)
 
 
 if __name__ == "__main__":
